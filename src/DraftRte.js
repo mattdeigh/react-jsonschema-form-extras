@@ -172,6 +172,9 @@ export default class DraftRTE extends Component {
     if (updateOnBlur) {
       this.updateFormData();
     }
+    if (this.props.onBlur) {
+      this.props.onBlur($id);
+    }
   };
 
   setEditorReference = ref => {
@@ -185,6 +188,9 @@ export default class DraftRTE extends Component {
    * handles the logic to load the suggestions on the time of focus
    */
   handleOnFocus = () => {
+    if (this.props.onFocus) {
+      this.props.onFocus($id);
+    }
     const { suggestions = [] } = this.state;
     let {
       uiSchema: { draftRte: { enableAutocomplete = false, autocomplete = {} } },
