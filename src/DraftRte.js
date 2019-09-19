@@ -168,7 +168,10 @@ export default class DraftRTE extends Component {
    * handles the logic to update formData on blur
    */
   handleBlur = () => {
-    let { uiSchema: { updateOnBlur = false } } = this.props;
+    let {
+      uiSchema: { updateOnBlur = false },
+      idSchema: { $id } = {},
+    } = this.props;
     if (updateOnBlur) {
       this.updateFormData();
     }
@@ -188,13 +191,14 @@ export default class DraftRTE extends Component {
    * handles the logic to load the suggestions on the time of focus
    */
   handleOnFocus = () => {
-    if (this.props.onFocus) {
-      this.props.onFocus($id);
-    }
     const { suggestions = [] } = this.state;
     let {
       uiSchema: { draftRte: { enableAutocomplete = false, autocomplete = {} } },
+      idSchema: { $id } = {},
     } = this.props;
+    if (this.props.onFocus) {
+      this.props.onFocus($id);
+    }
     if (!enableAutocomplete) {
       return false;
     }
